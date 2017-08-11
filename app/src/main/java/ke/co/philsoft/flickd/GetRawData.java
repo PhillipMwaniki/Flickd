@@ -36,21 +36,26 @@ class GetRawData extends AsyncTask<String, Void, String> {
         this.mDownloadStatus = DownloadStatus.IDLE;
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        Log.d(TAG, "onPostExecute: parameter = " + s);
-        if (mCallback != null) {
-            mCallback.onDownloadComplete(s, mDownloadStatus);
-        }
-        Log.d(TAG, "onPostExecute: ends");
+    void runInSameThread(String s) {
+        Log.d(TAG, "runInSameThread: starts");
+        onPostExecute(doInBackground(s));
+
+        Log.d(TAG, "runInSameThread: ends");
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected void onPostExecute(String s) {
+        if (mCallback != null) {
+            mCallback.onDownloadComplete(s, mDownloadStatus);
+        }
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
 
-        if (strings == null) {
+        if (params == null) {
             mDownloadStatus = DownloadStatus.NOT_INITIALISED;
             return null;
         }
@@ -58,7 +63,7 @@ class GetRawData extends AsyncTask<String, Void, String> {
         try {
 
             mDownloadStatus = DownloadStatus.PROCESSING;
-            URL url = new URL(strings[0]);
+            URL url = new URL(params[0]);
 
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
