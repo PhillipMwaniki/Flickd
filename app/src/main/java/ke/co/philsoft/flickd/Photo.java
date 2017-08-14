@@ -1,10 +1,12 @@
 package ke.co.philsoft.flickd;
 
+import java.io.Serializable;
+
 /**
  * Created by Phillip Mwaniki on 10-Aug-17.
  */
 
-class Photo {
+class Photo implements Serializable{
 
     private String mTitle;
     private String mAuthor;
