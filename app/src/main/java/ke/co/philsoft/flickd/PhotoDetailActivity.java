@@ -1,6 +1,7 @@
 package ke.co.philsoft.flickd;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ public class PhotoDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_photo_detail);
         activateToolbar(true);
 
+        Resources resources = getResources();
+
         Intent intent = getIntent();
         Photo photo = (Photo) intent.getSerializableExtra(PHOTO_TRANSFER);
         if (photo != null) {
@@ -23,7 +26,7 @@ public class PhotoDetailActivity extends BaseActivity {
 
             TextView photoTags = (TextView) findViewById(R.id.photo_tags);
 //            photoTags.setText("Tags: " + photo.getTags());
-            photoTags.setText(String.format("Tags: %s", photo.getTags()));
+            photoTags.setText(resources.getString(R.string.photo_tags_text, photo.getTags()));
 
             TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
             photoAuthor.setText(String.format("Tags: %s", photo.getAuthor()));

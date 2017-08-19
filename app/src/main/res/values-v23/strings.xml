@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browse_image_description">Downloaded Flickr photo</string>
+    <string name="activity_search">Search</string>
+    <string name="empty_photo">No photos match the search.  Use the the search icon to search flickr</string>
+</resources>
